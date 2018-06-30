@@ -1,16 +1,16 @@
 /* eslint-disable no-console, no-unused-vars */
-const async = require("async");
-const minimist = require("minimist");
-const { exec } = require("child_process");
+const async = require('async');
+const minimist = require('minimist');
+const { exec } = require('child_process');
 
-const node = "node_modules\\.bin\\";
+const node = 'node_modules\\.bin\\';
 
 const args = minimist(process.argv.slice(2));
 const project = args._[0];
 
 if (!project) {
-  console.log("You must specify a path");
-  console.log("node index.js /path/to/project");
+  console.log('You must specify a path');
+  console.log('node index.js /path/to/project');
   process.exit(1);
 }
 
@@ -24,7 +24,7 @@ const cjsxCodeMod = (glob, next) => {
   const command = `${node}cjsx-codemod.cmd ${glob}`;
 
   console.log();
-  console.log("$", command);
+  console.log('$', command);
   console.log();
 
   exec(command, (err, stdout, stderr) => {
@@ -46,15 +46,15 @@ const cjsxCodeMod = (glob, next) => {
  */
 const decaffeinate = (glob, next) => {
   const options = [
-    "--use-optional-chaining",
-    "--loose",
-    "--disable-babel-constructor-workaround"
+    '--use-optional-chaining',
+    '--loose',
+    '--disable-babel-constructor-workaround',
     // "--disallow-invalid-constructors"
   ];
-  const command = `${node}decaffeinate ${glob} ${options.join(" ")}`;
+  const command = `${node}decaffeinate ${glob} ${options.join(' ')}`;
 
   console.log();
-  console.log("$", command);
+  console.log('$', command);
   console.log();
 
   exec(command, (err, stdout, stderr) => {
@@ -78,7 +78,7 @@ const eslintFix = (glob, next) => {
   const command = `${node}eslint --fix ${glob}`;
 
   console.log();
-  console.log("$", command);
+  console.log('$', command);
   console.log();
 
   exec(command, (err, stdout, stderr) => {
@@ -102,7 +102,7 @@ const prettier = (glob, next) => {
   const command = `${node}prettier --write ${glob}`;
 
   console.log();
-  console.log("$", command);
+  console.log('$', command);
   console.log();
 
   exec(command, (err, stdout, stderr) => {
@@ -126,7 +126,7 @@ const deleteFiles = (glob, next) => {
   const command = `${node}rimraf "${glob}"`;
 
   console.log();
-  console.log("$", command);
+  console.log('$', command);
   console.log();
 
   exec(command, (err, stdout, stderr) => {
@@ -151,7 +151,7 @@ const runJSCodeShift = (script, glob, next) => {
   const command = `${node}jscodeshift -t ${script} ${glob}`;
 
   console.log();
-  console.log("$", command);
+  console.log('$', command);
   console.log();
 
   exec(command, (err, stdout, stderr) => {
@@ -169,32 +169,27 @@ const runJSCodeShift = (script, glob, next) => {
 const steps = [
   next => cjsxCodeMod(project, next),
   next => decaffeinate(project, next),
-  next => runJSCodeShift("react-codemod/transforms/class", project, next),
-  next =>
-    runJSCodeShift(
-      "react-codemod/transforms/create-element-to-jsx",
-      project,
-      next
-    ),
+  next => runJSCodeShift('react-codemod/transforms/class', project, next),
+  next => runJSCodeShift('react-codemod/transforms/create-element-to-jsx', project, next),
   next => prettier(`${project}/**/*.js`, next),
   // next => eslintFix(project, next),
-  next => deleteFiles(`${project}/**/*.coffee`, next)
+  next => deleteFiles(`${project}/**/*.coffee`, next),
 ];
 
 const next = (err, stderr) => {
   console.log();
 
   if (err) {
-    console.log("⛔️ ERR!", err);
+    console.log('⛔️ ERR!', err);
     console.log(stderr);
     process.exit(1);
   }
 
-  console.log("✅ Success!");
+  console.log('✅ Success!');
 
   console.log();
-  console.log("⚠️ Manual changes required!");
-  console.log(" - Reorder super() call to be first in every constructor");
+  console.log('⚠️ Manual changes required!');
+  console.log(' - Reorder super() call to be first in every constructor');
 };
 
 async.series(steps, next);
