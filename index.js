@@ -48,8 +48,8 @@ const decaffeinate = (glob, next) => {
   const options = [
     "--use-optional-chaining",
     "--loose",
-    "--disable-babel-constructor-workaround",
-    "--disallow-invalid-constructors"
+    "--disable-babel-constructor-workaround"
+    // "--disallow-invalid-constructors"
   ];
   const command = `${node}decaffeinate ${glob} ${options.join(" ")}`;
 
@@ -76,6 +76,30 @@ const decaffeinate = (glob, next) => {
  */
 const eslintFix = (glob, next) => {
   const command = `${node}eslint --fix ${glob}`;
+
+  console.log();
+  console.log("$", command);
+  console.log();
+
+  exec(command, (err, stdout, stderr) => {
+    if (err) {
+      next(err, stderr);
+      return;
+    }
+
+    console.log(stdout);
+    next();
+  });
+};
+
+/**
+ * Run only Prettier
+ *
+ * @param {*} glob
+ * @param {*} next
+ */
+const prettier = (glob, next) => {
+  const command = `${node}prettier --write ${glob}`;
 
   console.log();
   console.log("$", command);
@@ -152,7 +176,8 @@ const steps = [
       project,
       next
     ),
-  next => eslintFix(project, next),
+  next => prettier(`${project}/**/*.js`, next),
+  // next => eslintFix(project, next),
   next => deleteFiles(`${project}/**/*.coffee`, next)
 ];
 
@@ -166,6 +191,10 @@ const next = (err, stderr) => {
   }
 
   console.log("Success!");
+
+  console.log();
+  console.log("Manual changes required!");
+  console.log(" - Reorder super() call to be first in every constructor");
 };
 
 async.series(steps, next);
