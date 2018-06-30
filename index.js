@@ -180,16 +180,21 @@ const next = (err, stderr) => {
   console.log();
 
   if (err) {
-    console.log('⛔️ ERR!', err);
+    console.log('⛔️', ' ERR!', err);
+    console.log();
     console.log(stderr);
+    console.log();
     process.exit(1);
   }
 
-  console.log('✅ Success!');
+  console.log('✅', ' Success!');
 
   console.log();
-  console.log('⚠️ Manual changes required!');
-  console.log(' - Reorder super() call to be first in every constructor');
+  console.log('⚠️', ' Manual changes required!');
+  console.log(
+    ' - Reorder super() call to be first in every constructor since decoffenaite will add bind() before super()'
+  );
+  console.log();
 };
 
 async.series(steps, next);
