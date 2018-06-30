@@ -28,15 +28,12 @@ const cjsxCodeMod = (glob, next) => {
   console.log('$', command);
   console.log();
 
-  exec(command, (err, stdout, stderr) => {
-    if (err) {
-      next(err, stderr);
-      return;
-    }
+  const cmd = exec(command);
 
-    console.log(stdout);
-    next();
-  });
+  cmd.stdout.pipe(process.stdout);
+  cmd.stderr.pipe(process.stderr);
+
+  cmd.on('exit', next);
 };
 
 /**
@@ -58,15 +55,12 @@ const decaffeinate = (glob, next) => {
   console.log('$', command);
   console.log();
 
-  exec(command, (err, stdout, stderr) => {
-    if (err) {
-      next(err, stderr);
-      return;
-    }
+  const cmd = exec(command);
 
-    console.log(stdout);
-    next();
-  });
+  cmd.stdout.pipe(process.stdout);
+  cmd.stderr.pipe(process.stderr);
+
+  cmd.on('exit', next);
 };
 
 /**
@@ -82,15 +76,12 @@ const eslintFix = (glob, next) => {
   console.log('$', command);
   console.log();
 
-  exec(command, (err, stdout, stderr) => {
-    if (err) {
-      next(err, stderr);
-      return;
-    }
+  const cmd = exec(command);
 
-    console.log(stdout);
-    next();
-  });
+  cmd.stdout.pipe(process.stdout);
+  cmd.stderr.pipe(process.stderr);
+
+  cmd.on('exit', next);
 };
 
 /**
@@ -106,15 +97,12 @@ const prettier = (glob, next) => {
   console.log('$', command);
   console.log();
 
-  exec(command, (err, stdout, stderr) => {
-    if (err) {
-      next(err, stderr);
-      return;
-    }
+  const cmd = exec(command);
 
-    console.log(stdout);
-    next();
-  });
+  cmd.stdout.pipe(process.stdout);
+  cmd.stderr.pipe(process.stderr);
+
+  cmd.on('exit', next);
 };
 
 /**
@@ -135,15 +123,12 @@ const deleteFiles = (glob, next) => {
   console.log('$', command);
   console.log();
 
-  exec(command, (err, stdout, stderr) => {
-    if (err) {
-      next(err, stderr);
-      return;
-    }
+  const cmd = exec(command);
 
-    console.log(stdout);
-    next();
-  });
+  cmd.stdout.pipe(process.stdout);
+  cmd.stderr.pipe(process.stderr);
+
+  cmd.on('exit', next);
 };
 
 /**
@@ -160,15 +145,12 @@ const runJSCodeShift = (script, glob, next) => {
   console.log('$', command);
   console.log();
 
-  exec(command, (err, stdout, stderr) => {
-    if (err) {
-      next(err, stderr);
-      return;
-    }
+  const cmd = exec(command);
 
-    console.log(stdout);
-    next();
-  });
+  cmd.stdout.pipe(process.stdout);
+  cmd.stderr.pipe(process.stderr);
+
+  cmd.on('exit', next);
 };
 
 // Run all transformations
