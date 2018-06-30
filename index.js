@@ -7,6 +7,7 @@ const node = 'node_modules\\.bin\\';
 
 const args = minimist(process.argv.slice(2));
 const project = args._[0];
+const dontDeleteFiles = args.d;
 
 if (!project) {
   console.log('You must specify a path');
@@ -49,7 +50,7 @@ const decaffeinate = (glob, next) => {
     '--use-optional-chaining',
     '--loose',
     '--disable-babel-constructor-workaround',
-    // "--disallow-invalid-constructors"
+    '--disallow-invalid-constructors',
   ];
   const command = `${node}decaffeinate ${glob} ${options.join(' ')}`;
 
@@ -123,6 +124,11 @@ const prettier = (glob, next) => {
  * @param {*} next
  */
 const deleteFiles = (glob, next) => {
+  if (dontDeleteFiles) {
+    next();
+    return;
+  }
+
   const command = `${node}rimraf "${glob}"`;
 
   console.log();

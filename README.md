@@ -22,6 +22,12 @@ Run against a directory
 node index.js /path/to/project
 ```
 
+## Options
+
+| Parameter | Description                |
+| --------- | -------------------------- |
+| -d        | Do NOT delete Coffee files |
+
 ## Used packages/transformations
 
 - [cjsx-codemod](https://github.com/jsdf/cjsx-codemod)
@@ -35,9 +41,9 @@ node index.js /path/to/project
 
 ## How the conversion proccess works
 
- 1. Converts all cJSX files to use React.createElement
- 1. Converts all Coffee files to JS files
- 1. Converts React.createClass to ES6 classes
- 1. Converts React.createElement back to JSX
- 1. Runs prettier (ESLint unfortunatelly breaks the code with babel 7)
- 1. Runs rimraf and removes all Coffee files
+1.  Converts all cJSX files to use React.createElement
+1.  Converts all Coffee files to JS files
+1.  Converts React.createClass to ES6 classes
+1.  Converts React.createElement back to JSX
+1.  Runs prettier (ESLint unfortunatelly breaks the code with babel 7)
+1.  Runs rimraf and removes all Coffee files
