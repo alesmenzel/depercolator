@@ -2,6 +2,26 @@
 
 Opionated custom script to convert Coffee codebase to JS. Inspired by [bugsnag/depercolator](https://github.com/bugsnag/depercolator)
 
+## Usage
+
+Clone the repository
+
+```bash
+git clone https://github.com/AlesMenzel/depercolator.git
+```
+
+Install dependencies
+
+```bash
+cd depercolator && npm install
+```
+
+Run against a directory
+
+```bash
+node index.js /path/to/project
+```
+
 ## Used packages/transformations
 
 - [cjsx-codemod](https://github.com/jsdf/cjsx-codemod)
