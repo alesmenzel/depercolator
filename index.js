@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+/* eslint-disable no-console, no-unused-vars */
 const async = require("async");
 const minimist = require("minimist");
 const { exec } = require("child_process");
@@ -185,15 +185,15 @@ const next = (err, stderr) => {
   console.log();
 
   if (err) {
-    console.log("ERR!", err);
+    console.log("⛔️ ERR!", err);
     console.log(stderr);
     process.exit(1);
   }
 
-  console.log("Success!");
+  console.log("✅ Success!");
 
   console.log();
-  console.log("Manual changes required!");
+  console.log("⚠️ Manual changes required!");
   console.log(" - Reorder super() call to be first in every constructor");
 };
 
