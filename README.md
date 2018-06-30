@@ -53,7 +53,7 @@ class A extends B
 # Also consider whether you actually need to bind, in most cases just sswitching to -> is enough
 ```
 
-### Remove object constructor `{} = `
+### Remove object constructor `{} =`
 
 ```coffee
 doStuff = () ->
@@ -110,9 +110,11 @@ node index.js /path/to/project
 
 ## How the conversion proccess works
 
-1.  Converts all cJSX files to use React.createElement
-1.  Converts all Coffee files to JS files
-1.  Converts React.createClass to ES6 classes
-1.  Converts React.createElement back to JSX
-1.  Runs prettier (ESLint unfortunatelly breaks the code with babel 7)
-1.  Runs rimraf and removes all Coffee files
+1. Converts all cJSX files to use React.createElement
+1. Converts all Coffee files to JS files
+1. Remove .coffee extension from require()
+1. Converts React.createClass to ES6 classes
+1. Converts React.createElement back to JSX
+1. Converts to more modern JS syntax (no var, template literals, object assign to spread, arrow functions instead of bind)
+1. Runs prettier (ESLint unfortunatelly breaks the code with babel 7)
+1. Runs rimraf and removes all Coffee files
