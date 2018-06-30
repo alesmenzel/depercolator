@@ -169,8 +169,8 @@ const runJSCodeShift = (script, glob, next) => {
 const steps = [
   next => cjsxCodeMod(project, next),
   next => decaffeinate(project, next),
-  next => runJSCodeShift('react-codemod/transforms/class', project, next),
-  next => runJSCodeShift('react-codemod/transforms/create-element-to-jsx', project, next),
+  next => runJSCodeShift('react-codemod\\transforms\\class.js', project, next),
+  next => runJSCodeShift('react-codemod\\transforms\\create-element-to-jsx.js', project, next),
   next => prettier(`${project}/**/*.js`, next),
   // next => eslintFix(project, next),
   next => deleteFiles(`${project}/**/*.coffee`, next),
