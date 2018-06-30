@@ -2,6 +2,75 @@
 
 Opionated custom script to convert Coffee codebase to JS. Inspired by [bugsnag/depercolator](https://github.com/bugsnag/depercolator)
 
+## Prerequisities
+
+Make sure you change the following before converting your codebase.
+
+### Using `this` before super
+
+```coffee
+class B extends A
+  constructor: (@options) ->
+    super options
+
+# this would compile in coffee to using this before super which is not allowed in JS
+```
+
+Instead rewrite it as
+
+```coffee
+class A extends B
+  constructor: (options) ->
+    super options
+    @options = options
+```
+
+### Using fat arror functions `=>` to bind class methods
+
+```coffee
+class B extends A
+  constructor: (@options) ->
+    super options
+
+  doStuff: () =>
+    ...
+
+# this would compile in coffee to using this before super which is not allowed in JS
+```
+
+Instead rewrite it as
+
+```coffee
+class A extends B
+  constructor: (options) ->
+    super options
+    @options = options
+    @doStuff = @doStuff.bind @
+
+  doStuff: () ->
+    ...
+
+# Also consider whether you actually need to bind, in most cases just sswitching to -> is enough
+```
+
+### Remove object constructor `{} = `
+
+```coffee
+doStuff = () ->
+  return {} =
+    a: 5
+    b: 8
+```
+
+Instead write as
+
+```coffee
+doStuff = () ->
+  return
+    a: 5
+    b: 8
+```
+
 ## Usage
 
 Clone the repository
