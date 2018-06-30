@@ -1,6 +1,6 @@
 # ☕ Depercolator
 
-Opionated custom script to convert Coffee codebase to JS. Inspired by [bugsnag/depercolator](https://github.com/bugsnag/depercolator)
+Opinionated custom script to convert Coffee codebase to JS. Inspired by [bugsnag/depercolator](https://github.com/bugsnag/depercolator)
 
 ## Prerequisities
 
@@ -50,7 +50,7 @@ class A extends B
   doStuff: () ->
     ...
 
-# Also consider whether you actually need to bind, in most cases just sswitching to -> is enough
+# Also consider whether you actually need to bind, in most cases just switching to -> is enough
 ```
 
 ### Remove object constructor `{} =`
