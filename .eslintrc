@@ -1,0 +1,9 @@
+{
+  "extends": [
+    "airbnb",
+    "plugin:prettier/recommended"
+  ],
+  "rules": {
+    "linebreak-style": "off"
+  }
+}
