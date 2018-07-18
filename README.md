@@ -71,6 +71,50 @@ doStuff = () ->
     b: 8
 ```
 
+### Remove shadowing variables
+
+Shadowing variables are incorectly converted and the inner varibale tries to override the outer scope even though they are in different scopes in coffeescript.
+
+```coffee
+out = _.map [1, 2, 3], (item) ->
+  out = item * 2
+  out
+```
+
+Instead write as
+
+```coffee
+out = _.map [1, 2, 3], (item) ->
+  result = item * 2
+  result
+```
+
+### Remove same variable names in inner scopes
+
+If you use same variable names in inner scope of a function as in the outer scope, decaffenaite will incorectly convert this case, see the sample:
+
+```coffee
+out = _.map [1, 2, 3], (item) ->
+    out = item * 2
+    out
+```
+
+Will get converted incorrectly to
+
+```js
+// Broken code!
+var out = _.map([1, 2, 3], function(item) {
+  out = item * 2;
+  return out;
+});
+
+// Fixed code
+var out = _.map([1, 2, 3], function(item) {
+  var out = item * 2;
+  return out;
+});
+```
+
 ## Usage
 
 Clone the repository
@@ -111,10 +155,10 @@ node index.js /path/to/project
 ## How the conversion proccess works
 
 1. Converts all cJSX files to use React.createElement
-1. Converts all Coffee files to JS files
-1. Remove .coffee extension from require()
-1. Converts React.createClass to ES6 classes
-1. Converts React.createElement back to JSX
-1. Converts to more modern JS syntax (no var, template literals, object assign to spread, arrow functions instead of bind)
-1. Runs prettier (ESLint unfortunatelly breaks the code with babel 7)
-1. Runs rimraf and removes all Coffee files
+2. Converts all Coffee files to JS files
+3. Remove .coffee extension from require()
+4. Converts React.createClass to ES6 classes
+5. Converts React.createElement back to JSX
+6. Converts to more modern JS syntax (no var, template literals, object assign to spread, arrow functions instead of bind)
+7. Runs prettier (ESLint unfortunatelly breaks the code with babel 7)
+8. Runs rimraf and removes all Coffee files
